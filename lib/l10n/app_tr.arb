@@ -1,0 +1,10 @@
+{
+  "login_title": "Giriş Yap",
+  "@login_title": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "home_title": "Anasayfa",
+  "@home_title": {
+    "description": "The conventional newborn programmer greeting"
+  }
+}
