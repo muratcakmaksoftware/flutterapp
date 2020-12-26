@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/services.dart';
+
+//Pages
+import './views/Login/login.dart';
 import 'package:flutterapp/views/Home/home.dart';
 
-import './views/Login/login.dart';
+import 'package:flutterapp/views/config.dart';
+import 'package:flutterapp/utils/device_info.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(CustomMaterialApp(
+      MyApp()
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,24 +19,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     bool isAuthenticated = false;
+    /*double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
+    DeviceInfo.setValues(deviceWidth, deviceHeight);
+    print("${DeviceInfo.deviceWidth} - ${DeviceInfo.deviceHeight}");*/
 
-    return MaterialApp(
-      title: 'Localizations Sample App',
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale('en', ''),
-        const Locale('tr', ''),
-      ],
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: isAuthenticated ? Home() : Login(),
-    );
+    return isAuthenticated ? Home() : Login();
   }
+
 }

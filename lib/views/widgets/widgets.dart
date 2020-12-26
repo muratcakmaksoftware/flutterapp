@@ -1,0 +1,1 @@
+export 'package:flutterapp/views/widgets/custom_text.dart';
