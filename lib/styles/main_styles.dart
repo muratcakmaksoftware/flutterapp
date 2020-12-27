@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-final TextStyle customTextStyle = new TextStyle(fontSize: 20, color: Colors.blue, decoration: TextDecoration.none);
+final TextStyle defaultTextStyle = new TextStyle(fontSize: 17, color: Colors.white, decoration: TextDecoration.none);
 
 class CustomColors {
 
@@ -14,4 +14,9 @@ class CustomColors {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
+}
+
+class CustomButtonStyle{
+  static const background = Color(0xF1D83C00);
+  static const splashColor = Colors.cyan;
 }

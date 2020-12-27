@@ -7,7 +7,7 @@ class Home extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context).home_title),
+          title: Text(AppLocalizations.of(context).app_name),
         ),
         body: Container(
           child: Center(
@@ -23,15 +23,3 @@ class Home extends StatelessWidget {
     );
   }
 }
-
-/*
-Widget myLayoutWidget() {
-  return Row(
-    children: [
-      Expanded(child: Icon(Icons.home)),
-      Expanded(child: Icon(Icons.home)),
-      Expanded(child: Icon(Icons.home)),
-      Expanded(child: Icon(Icons.home)),
-    ],
-  );
-}*/

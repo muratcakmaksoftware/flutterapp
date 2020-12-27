@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-//Pages
-import './views/Login/login.dart';
-import 'package:flutterapp/views/Home/home.dart';
-
+import 'package:flutterapp/core/auth/login.dart';
 import 'package:flutterapp/views/config.dart';
-import 'package:flutterapp/utils/device_info.dart';
+
+import 'package:flutterapp/views/home/home.dart';
+import 'package:flutterapp/views/login/login.dart';
 
 void main() {
   runApp(CustomMaterialApp(
-      MyApp()
-  ));
+      MainApp()
+    )
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-    bool isAuthenticated = false;
-    /*double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
-    DeviceInfo.setValues(deviceWidth, deviceHeight);
-    print("${DeviceInfo.deviceWidth} - ${DeviceInfo.deviceHeight}");*/
-
+    //final size = MediaQuery.of(context).size;
+    DeviceInfo.setValues(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height); //Device set Width / Height
+    //print("${DeviceInfo.deviceWidth} - ${DeviceInfo.deviceHeight}");
+    bool isAuthenticated = LoginController.auth("", "");
     return isAuthenticated ? Home() : Login();
   }
 

@@ -1,10 +1,26 @@
 {
-  "login_title": "Giriş Yap",
-  "@login_title": {
-    "description": "The conventional newborn programmer greeting"
-  },
-  "home_title": "Anasayfa",
-  "@home_title": {
-    "description": "The conventional newborn programmer greeting"
-  }
+    "app_name": "Flutter App",
+    "@app_name": {
+        "description": "Uygulama adı"
+    },
+
+    "login_tab_logged_in": "Giriş Yap",
+    "@login_tab_logged_in": {
+        "description": "Login ekranında tab giriş yap görünümü"
+    },
+
+    "login_input_username_hint": "Kullanıcı Adı",
+    "@login_input_username_hint": {
+        "description": "Login ekranında tab giriş yap görünümünde username hint"
+    },
+
+    "login_tab_register": "Kayıt Ol",
+    "@login_tab_register": {
+        "description": "Login ekranında tab kayıt ol görünümü"
+    },
+
+    "home_title": "Anasayfa",
+    "@home_title": {
+        "description": "The conventional newborn programmer greeting"
+    }
 }

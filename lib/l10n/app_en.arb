@@ -1,4 +1,6 @@
 {
-  "login_title": "Login",
-  "home_title": "Home Page"
+  "app_name": "Flutter App",
+  "login_tab_logged_in": "Login",
+  "login_input_username_hint": "Username",
+  "login_tab_register": "Register"
 }

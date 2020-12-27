@@ -4,7 +4,7 @@ class CustomText extends StatelessWidget {
   final String text;
   final TextStyle style;
   CustomText(this.text, {this.style}){
-
+      //
   }
 
   @override
