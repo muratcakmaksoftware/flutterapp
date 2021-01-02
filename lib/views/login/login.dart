@@ -1,5 +1,5 @@
+import 'package:flutterapp/core/auth/login.dart';
 import 'package:flutterapp/views/config.dart';
-//import 'package:flutterapp/utils/device_info.dart';
 import 'package:flutterapp/utils/calculator.dart';
 
 class Login extends StatefulWidget {
@@ -11,6 +11,7 @@ class LoginState extends State<Login> {
 
   Login(){
     //print("${DeviceInfo.deviceWidth} - ${DeviceInfo.deviceHeight}");
+
   }
   PageController _pageController;
   TextEditingController _txteditPhoneController;
@@ -22,6 +23,9 @@ class LoginState extends State<Login> {
         initialPage: 0,
       // scrollDirection: Axis.vertical,
     );
+
+    bool isAuthenticated = LoginController.auth("", "");
+    print(isAuthenticated);
   }
 
   void dispose() {
@@ -32,8 +36,14 @@ class LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomMaterialApp(
-      Container( //içerik
+    //final size = MediaQuery.of(context).size;
+    DeviceInfo.setValues(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height); //Device set Width / Height
+    //print("${DeviceInfo.deviceWidth} - ${DeviceInfo.deviceHeight}");
+
+    /*bool isAuthenticated = LoginController.auth("", "");
+    return isAuthenticated ? Home() : Login();*/
+    return Scaffold(
+      body:Container( //içerik
         decoration: BoxDecoration( //Arka plan rengi
           gradient: LinearGradient(
               colors: [Color(0xFFfbab66), Color(0xFFf7418c)],
@@ -57,79 +67,81 @@ class LoginState extends State<Login> {
             ),
             Row(
               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+              children: [
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: FlatButton(
-                      color: CustomButtonStyle.background,
-                      splashColor: Colors.cyan,
-                      //highlightColor: Colors.cyan,
-                      onPressed: (){
-                        _onChangePage(0);
-                      },
-                      child: Text(
-                        AppLocalizations.of(context).login_tab_logged_in,
-                        style: defaultTextStyle,
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: FlatButton(
+                        color: CustomButtonStyle.background,
+                        splashColor: Colors.cyan,
+                        //highlightColor: Colors.cyan,
+                        onPressed: (){
+                          _onChangePage(0);
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).login_tab_logged_in,
+                          style: defaultTextStyle,
+                        ),
                       ),
-                    ),
-                  )
+                    )
                 ),
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: FlatButton(
-                      color: CustomButtonStyle.background,
-                      splashColor: CustomButtonStyle.splashColor,
-                      //highlightColor: Colors.cyan,
-                      onPressed: (){
-                        _onChangePage(1);
-                      },
-                      child: Text(
-                        AppLocalizations.of(context).login_tab_register,
-                        style: defaultTextStyle,
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: FlatButton(
+                        color: CustomButtonStyle.background,
+                        splashColor: CustomButtonStyle.splashColor,
+                        //highlightColor: Colors.cyan,
+                        onPressed: (){
+                          _onChangePage(1);
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).login_tab_register,
+                          style: defaultTextStyle,
+                        ),
                       ),
-                    ),
-                  )
+                    )
                 ),
               ],
             ),
             Container(
-              child: Expanded(
-                child:PageView(
-                  controller: _pageController,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      child:  TextField(
-                        controller: _txteditPhoneController,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context).login_input_username_hint,
+                child: Expanded(
+                    child:PageView(
+                      controller: _pageController,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(20),
+                          child:  TextField(
+                            controller: _txteditPhoneController,
+                            decoration: InputDecoration(
+                              hintText: AppLocalizations.of(context).login_input_username_hint,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        "Register",
-                        style: defaultTextStyle,
-                      ),
+                        Container(
+                          child: Text(
+                            "Register",
+                            style: defaultTextStyle,
+                          ),
+                        )
+                      ],
                     )
-                  ],
                 )
-              )
             )
 
           ],
         ),
       )
-
     );
+
   }
 
   void _onChangePage(index) {
+    MainApp.setLocale(context, SupportLanguage.en);
+    //AppConfig.setLocale(context, SupportLanguage.en);
     /*Navigator.pushNamed(
       context, MainRoutes.home,
     );*/
-    _pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+    //_pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 }

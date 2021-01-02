@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutterapp/views/config.dart';
 
 class Home extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,7 +14,21 @@ class Home extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Kullanıcı Adı"),
+                FlatButton(
+                  color: CustomButtonStyle.background,
+                  splashColor: Colors.cyan,
+                  //highlightColor: Colors.cyan,
+                  onPressed: (){
+                    Navigator.pushNamed(
+                        context,
+                        MainRoutes.about
+                    );
+                  },
+                  child: Text(
+                    AppLocalizations.of(context).login_tab_logged_in,
+                    style: defaultTextStyle,
+                  ),
+                )
               ],
             ),
           ),

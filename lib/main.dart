@@ -1,25 +1,63 @@
-import 'package:flutter/material.dart';
-import 'package:flutterapp/core/auth/login.dart';
 import 'package:flutterapp/views/config.dart';
+import 'package:flutterapp/routes/main_router.dart';
 
-import 'package:flutterapp/views/home/home.dart';
-import 'package:flutterapp/views/login/login.dart';
 
 void main() {
-  runApp(CustomMaterialApp(
+  runApp(
       MainApp()
-    )
   );
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
+
+  //Diğer görünümlerden dil değiştirilirse kullanmak amaçlı
+  static void setLocale(BuildContext context, Locale locale){
+    MainAppState state = context.findAncestorStateOfType<MainAppState>(); //MainAppState deki fonksiyonlara ve state erişmek için
+    state.setLocale(locale);
+  }
+
+  @override
+  MainAppState createState() => new MainAppState();
+}
+
+class MainAppState extends State<MainApp> {
+  Locale _locale = SupportLanguage.tr; //default dilin atanması.
+
+  void setLocale(Locale locale){
+    setState((){
+      _locale = locale;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    //final size = MediaQuery.of(context).size;
-    DeviceInfo.setValues(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height); //Device set Width / Height
-    //print("${DeviceInfo.deviceWidth} - ${DeviceInfo.deviceHeight}");
-    bool isAuthenticated = LoginController.auth("", "");
-    return isAuthenticated ? Home() : Login();
+
+    return MaterialApp(
+      title: 'Flutter App',
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: _locale , //başlangıç dilin atanması
+      supportedLocales: [
+        SupportLanguage.tr,
+        SupportLanguage.en,
+      ],
+      /*localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+        return locale;
+      },*/
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: MainRouter.generateRoute,
+      initialRoute: MainRoutes.auth, //Başlangıç route
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      /*home: Scaffold( //material görmesi için örnek textfield gereklidir.
+          body:
+      ),*/
+    );
   }
 
 }
