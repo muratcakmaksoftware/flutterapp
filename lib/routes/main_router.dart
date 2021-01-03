@@ -16,7 +16,7 @@ class MainRouter {
         return MaterialPageRoute(builder: (_) => Login());
       case MainRoutes.about:
         return MaterialPageRoute(builder: (_) => About());
-      default:
+      /*default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(
             appBar: AppBar(),
@@ -24,7 +24,7 @@ class MainRouter {
               child: Text('Ters giden birşeyler oldu'),
             ),
           ),
-        );
+        );*/
     }
   }
 }
