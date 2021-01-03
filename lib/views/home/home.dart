@@ -15,8 +15,8 @@ class Home extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 FlatButton(
-                  color: CustomButtonStyle.background,
-                  splashColor: Colors.cyan,
+                  color: MainButtonStyle.background,
+                  splashColor: MainButtonStyle.splashColor,
                   //highlightColor: Colors.cyan,
                   onPressed: (){
                     Navigator.pushNamed(
@@ -26,7 +26,7 @@ class Home extends StatelessWidget {
                   },
                   child: Text(
                     AppLocalizations.of(context).login_tab_logged_in,
-                    style: defaultTextStyle,
+                    style: MainTextStyle.textStyle,
                   ),
                 )
               ],

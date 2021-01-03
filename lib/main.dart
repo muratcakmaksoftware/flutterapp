@@ -54,9 +54,7 @@ class MainAppState extends State<MainApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      /*home: Scaffold( //material görmesi için örnek textfield gereklidir.
-          body:
-      ),*/
+      //home: Login()
     );
   }
 

@@ -14,6 +14,7 @@ class LoginState extends State<Login> {
 
   }
   PageController _pageController;
+  int _pageViewIndex = 0;
   TextEditingController _txteditPhoneController;
 
   void initState() {
@@ -43,6 +44,15 @@ class LoginState extends State<Login> {
     /*bool isAuthenticated = LoginController.auth("", "");
     return isAuthenticated ? Home() : Login();*/
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFFfbab66),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: LanguageList()
+          )
+        ],
+      ),
       body:Container( //içerik
         decoration: BoxDecoration( //Arka plan rengi
           gradient: LinearGradient(
@@ -58,12 +68,12 @@ class LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center, // Ortalama
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //Padding(padding: null),
+
             Image(
-                width: getDeviceWidthPrecantage(70), //ekranın %70 lik genişlik verir.
+                width: getDeviceWidthPrecantage(50), //ekranın %70 lik genişlik verir.
                 height: 200.0,
                 fit: BoxFit.fill,
-                image: AssetImage('assets/auth/background.png')
+                image: AssetImage('assets/auth/kuryelogo.png')
             ),
             Row(
               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -72,15 +82,15 @@ class LoginState extends State<Login> {
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
-                        color: CustomButtonStyle.background,
-                        splashColor: Colors.cyan,
+                        color: _pageViewIndex == 0 ? MainButtonStyle.backgroundSelected : MainButtonStyle.background,
+                        splashColor: MainButtonStyle.splashColor,
                         //highlightColor: Colors.cyan,
                         onPressed: (){
                           _onChangePage(0);
                         },
                         child: Text(
                           AppLocalizations.of(context).login_tab_logged_in,
-                          style: defaultTextStyle,
+                          style: MainButtonStyle.textStyle,
                         ),
                       ),
                     )
@@ -89,15 +99,15 @@ class LoginState extends State<Login> {
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
-                        color: CustomButtonStyle.background,
-                        splashColor: CustomButtonStyle.splashColor,
+                        color: _pageViewIndex == 1 ? MainButtonStyle.backgroundSelected : MainButtonStyle.background,
+                        splashColor: MainButtonStyle.splashColor,
                         //highlightColor: Colors.cyan,
                         onPressed: (){
                           _onChangePage(1);
                         },
                         child: Text(
                           AppLocalizations.of(context).login_tab_register,
-                          style: defaultTextStyle,
+                          style: MainButtonStyle.textStyle,
                         ),
                       ),
                     )
@@ -105,28 +115,41 @@ class LoginState extends State<Login> {
               ],
             ),
             Container(
-                child: Expanded(
-                    child:PageView(
-                      controller: _pageController,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(20),
-                          child:  TextField(
-                            controller: _txteditPhoneController,
-                            decoration: InputDecoration(
-                              hintText: AppLocalizations.of(context).login_input_username_hint,
+              padding: EdgeInsets.all(10),
+              height: 300,
+
+                child:PageView(
+                  controller: _pageController,
+                  children: [
+                    Container(
+                      color: MainStyle.boxBackgroundColor,
+                      padding: EdgeInsets.all(20),
+                      child:SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            TextField(
+                              controller: _txteditPhoneController,
+                              decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context).login_input_username_hint,
+                              ),
                             ),
-                          ),
+
+                          ],
                         ),
-                        Container(
-                          child: Text(
-                            "Register",
-                            style: defaultTextStyle,
-                          ),
-                        )
-                      ],
+                      )
+
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      color: MainStyle.boxBackgroundColor,
+                      child: Text(
+                        "Register",
+                        style: MainTextStyle.textStyle,
+                      ),
                     )
+                  ],
                 )
+
             )
 
           ],
@@ -137,11 +160,15 @@ class LoginState extends State<Login> {
   }
 
   void _onChangePage(index) {
-    MainApp.setLocale(context, SupportLanguage.en);
-    //AppConfig.setLocale(context, SupportLanguage.en);
+    //MainApp.setLocale(context, SupportLanguage.en);
     /*Navigator.pushNamed(
       context, MainRoutes.home,
     );*/
-    //_pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+    setState(() {
+      _pageViewIndex = index;
+    });
+
+    print(_pageViewIndex);
+    _pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 }
