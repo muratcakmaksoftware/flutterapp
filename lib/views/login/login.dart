@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutterapp/core/auth/login.dart';
 import 'package:flutterapp/views/config.dart';
 import 'package:flutterapp/utils/calculator.dart';
@@ -15,11 +16,14 @@ class LoginState extends State<Login> {
   }
   PageController _pageController;
   int _pageViewIndex = 0;
-  TextEditingController _txteditPhoneController;
+  final TextEditingController _txteditPhoneController = TextEditingController();
+
+  final TextEditingController _txteditRegUsernameController = TextEditingController();
+  final TextEditingController _txteditRegPasswordController = TextEditingController();
+  final TextEditingController _txteditRegEmailController = TextEditingController();
 
   void initState() {
     super.initState();
-    _txteditPhoneController = TextEditingController();
     _pageController = PageController(
         initialPage: 0,
       // scrollDirection: Axis.vertical,
@@ -35,6 +39,8 @@ class LoginState extends State<Login> {
     super.dispose();
   }
 
+
+  final _formRegisterKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     //final size = MediaQuery.of(context).size;
@@ -45,7 +51,8 @@ class LoginState extends State<Login> {
     return isAuthenticated ? Home() : Login();*/
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFfbab66),
+        backgroundColor: Colors.transparent, //appbar arkaplanı saydam yapma.
+        elevation: 0.0,//appbar arkaplanını body ile birleştirme
         actions: [
           Padding(
             padding: EdgeInsets.all(10),
@@ -53,7 +60,8 @@ class LoginState extends State<Login> {
           )
         ],
       ),
-      body:Container( //içerik
+      extendBodyBehindAppBar: true, //appbar arkaplanını body ile birleştirme
+        body:Container( //içerik
         decoration: BoxDecoration( //Arka plan rengi
           gradient: LinearGradient(
               colors: [Color(0xFFfbab66), Color(0xFFf7418c)],
@@ -68,10 +76,9 @@ class LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center, // Ortalama
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
             Image(
-                width: getDeviceWidthPrecantage(50), //ekranın %70 lik genişlik verir.
-                height: 200.0,
+                width: getDeviceWidthPrecantage(45), //ekranın %70 lik genişlik verir.
+                height: 150.0,
                 fit: BoxFit.fill,
                 image: AssetImage('assets/auth/kuryelogo.png')
             ),
@@ -116,9 +123,9 @@ class LoginState extends State<Login> {
             ),
             Container(
               padding: EdgeInsets.all(10),
-              height: 300,
-
+              height: 350,
                 child:PageView(
+                  onPageChanged: _onChangePage,
                   controller: _pageController,
                   children: [
                     Container(
@@ -140,13 +147,71 @@ class LoginState extends State<Login> {
 
                     ),
                     Container(
-                      padding: EdgeInsets.all(20),
-                      color: MainStyle.boxBackgroundColor,
-                      child: Text(
-                        "Register",
-                        style: MainTextStyle.textStyle,
-                      ),
-                    )
+                        color: MainStyle.boxBackgroundColor,
+                        padding: EdgeInsets.all(20),
+                        child:SingleChildScrollView(
+                          child: Form(
+                            key: _formRegisterKey,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return AppLocalizations.of(context).reg_username_valid;
+                                    }
+                                    return null;
+                                  },
+                                  controller: _txteditRegUsernameController,
+                                  decoration: InputDecoration(
+                                    icon: Icon(Icons.account_box),
+                                    labelText: AppLocalizations.of(context).reg_username,
+                                    hintText: AppLocalizations.of(context).reg_username,
+                                  ),
+                                ),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return AppLocalizations.of(context).reg_password_valid;
+                                    }
+                                    return null;
+                                  },
+                                  controller: _txteditRegPasswordController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    icon: Icon(Icons.lock),
+                                    labelText: AppLocalizations.of(context).reg_password,
+                                    hintText: AppLocalizations.of(context).reg_password,
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: _txteditRegEmailController,
+                                  validator: (value) => EmailValidator.validate(value) ? null : AppLocalizations.of(context).reg_mail_valid,
+                                  decoration: InputDecoration(
+                                    icon: Icon(Icons.mail_outline),
+                                    labelText: AppLocalizations.of(context).reg_mail,
+                                    hintText: AppLocalizations.of(context).reg_mail,
+                                  ),
+                                ),
+                                FlatButton(
+                                  color: MainButtonStyle.background,
+                                  splashColor: MainButtonStyle.splashColor,
+                                  onPressed: (){
+                                    if (_formRegisterKey.currentState.validate()) {
+                                      print("okk");
+                                    }
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context).login_tab_register,
+                                    style: MainButtonStyle.textStyle,
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                          )
+                        )
+
+                    ),
                   ],
                 )
 

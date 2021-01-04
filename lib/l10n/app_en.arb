@@ -2,5 +2,12 @@
   "app_name": "Flutter App",
   "login_tab_logged_in": "Login",
   "login_input_username_hint": "Username",
-  "login_tab_register": "Register"
+  "login_tab_register": "Register",
+
+  "reg_username": "Username",
+    "reg_username_valid": "Username is not valid.",
+  "reg_password": "Password",
+    "reg_password_valid": "Password is not valid.",
+  "reg_mail": "E-Mail",
+    "reg_mail_valid": "E-Mail is not valid."
 }

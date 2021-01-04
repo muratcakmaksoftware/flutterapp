@@ -23,9 +23,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
+  flutter_localizations: #dil için
       sdk: flutter
-  intl: ^0.16.1
+  intl: ^0.16.1 #dil için
+  email_validator: '^1.0.0' # mail adresi kontrolleri için
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

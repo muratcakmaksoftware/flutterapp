@@ -19,8 +19,30 @@
         "description": "Login ekranında tab kayıt ol görünümü"
     },
 
-    "home_title": "Anasayfa",
-    "@home_title": {
-        "description": "The conventional newborn programmer greeting"
-    }
+    "reg_username": "Kullanıcı Adı",
+    "@reg_username": {
+        "description": "Kayıt ol kullanıcı adı"
+    },
+        "reg_username_valid": "Kullanıcı Adınızı Giriniz!",
+        "@reg_username_valid": {
+            "description": ""
+        },
+
+    "reg_password": "Şifre",
+    "@reg_password": {
+        "description": "Kayıt ol şifre"
+    },
+        "reg_password_valid": "Şifrenizi Giriniz!",
+        "@reg_password_valid": {
+            "description": ""
+        },
+
+    "reg_mail": "Mail Adresi",
+    "@reg_mail": {
+        "description": "Kayıt ol mail adresi"
+    },
+        "reg_mail_valid": "E-Mail Adresinizi Doğrulayınız!",
+        "@reg_mail_valid": {
+            "description": ""
+        }
 }
