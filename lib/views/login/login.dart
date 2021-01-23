@@ -1,5 +1,5 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:flutterapp/core/auth/login.dart';
+import 'package:flutterapp/core/auth/auth.dart';
 import 'package:flutterapp/views/config.dart';
 import 'package:flutterapp/utils/calculator.dart';
 
@@ -29,7 +29,7 @@ class LoginState extends State<Login> {
       // scrollDirection: Axis.vertical,
     );
 
-    bool isAuthenticated = LoginController.auth("", "");
+    bool isAuthenticated = AuthController.authRemember("", "");
     print(isAuthenticated);
   }
 
@@ -76,11 +76,16 @@ class LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center, // Ortalama
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(
-                width: getDeviceWidthPrecantage(45), //ekranın %70 lik genişlik verir.
-                height: 150.0,
-                fit: BoxFit.fill,
-                image: AssetImage('assets/auth/kuryelogo.png')
+            Container(
+              width: getDeviceWidthPrecantage(45), //ekranın %70 lik genişlik verir.
+              height: 190.0,
+              decoration: new BoxDecoration(
+                shape: BoxShape.circle,
+                image: new DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage('assets/auth/logo500x500.png')
+                )
+              )
             ),
             Row(
               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
