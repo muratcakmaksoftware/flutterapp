@@ -25,8 +25,8 @@ class Home extends StatelessWidget {
                     );
                   },
                   child: Text(
-                    AppLocalizations.of(context).login_tab_logged_in,
-                    style: MainTextStyle.textStyle,
+                    "Hakkımızda",
+                    style: MainButtonStyle.textStyle,
                   ),
                 )
               ],

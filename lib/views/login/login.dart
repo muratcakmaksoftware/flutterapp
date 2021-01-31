@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutterapp/core/auth/auth.dart';
+import 'package:flutterapp/models/user.dart';
 import 'package:flutterapp/views/config.dart';
 import 'package:flutterapp/utils/calculator.dart';
 
@@ -16,7 +17,8 @@ class LoginState extends State<Login> {
   }
   PageController _pageController;
   int _pageViewIndex = 0;
-  final TextEditingController _txteditPhoneController = TextEditingController();
+  final TextEditingController _txteditLogUsernameController = TextEditingController();
+  final TextEditingController _txteditLogPasswordController = TextEditingController();
 
   final TextEditingController _txteditRegUsernameController = TextEditingController();
   final TextEditingController _txteditRegPasswordController = TextEditingController();
@@ -34,13 +36,13 @@ class LoginState extends State<Login> {
   }
 
   void dispose() {
-    _txteditPhoneController.dispose();
     _pageController.dispose();
     super.dispose();
   }
 
 
   final _formRegisterKey = GlobalKey<FormState>();
+  final _formLoginKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     //final size = MediaQuery.of(context).size;
@@ -137,17 +139,76 @@ class LoginState extends State<Login> {
                       color: MainStyle.boxBackgroundColor,
                       padding: EdgeInsets.all(20),
                       child:SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            TextField(
-                              controller: _txteditPhoneController,
-                              decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context).login_input_username_hint,
+                        child: Form(
+                          key: _formLoginKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return AppLocalizations.of(context).log_username_valid;
+                                  }
+                                  return null;
+                                },
+                                controller: _txteditLogUsernameController,
+                                decoration: InputDecoration(
+                                  icon: Icon(Icons.account_box),
+                                  labelText: AppLocalizations.of(context).log_username,
+                                  hintText: AppLocalizations.of(context).log_username,
+                                ),
                               ),
-                            ),
+                              TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return AppLocalizations.of(context).log_password_valid;
+                                  }
+                                  return null;
+                                },
+                                controller: _txteditLogPasswordController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  icon: Icon(Icons.lock),
+                                  labelText: AppLocalizations.of(context).log_password,
+                                  hintText: AppLocalizations.of(context).log_password,
+                                ),
+                              ),
+                              FlatButton(
+                                color: MainButtonStyle.background,
+                                splashColor: MainButtonStyle.splashColor,
+                                onPressed: () async {
+                                  if (_formLoginKey.currentState.validate()) {
+                                    final String username = _txteditLogUsernameController.text;
+                                    final String password = _txteditLogPasswordController.text;
+                                    final result = await AuthController.login(username, password);
+                                    //print(result);
+                                    print(User.token);
+                                    if(result["status"] == 0){
+                                      Fluttertoast.showToast(
+                                          msg: result["message"],
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.orange,
+                                          textColor: Colors.black,
+                                          fontSize: 16.0
+                                      );
+                                    }else{ //status == 1
+                                      Navigator.pushNamed(
+                                        context, MainRoutes.home,
+                                      );
+                                    }
 
-                          ],
-                        ),
+                                  }
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context).login_tab_logged_in,
+                                  style: MainButtonStyle.textStyle,
+                                ),
+                              ),
+
+                            ],
+                          ),
+                        )
                       )
 
                     ),
@@ -238,7 +299,7 @@ class LoginState extends State<Login> {
       _pageViewIndex = index;
     });
 
-    print(_pageViewIndex);
+    //print(_pageViewIndex);
     _pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 }

@@ -11,3 +11,6 @@ export 'package:flutterapp/l10n/language.dart'; //gerekli dil kütüphaneleri ve
 export 'package:flutterapp/routes/route_names.dart'; //route isim bilgilerinin çekilmesi
 
 export 'package:flutterapp/utils/device_info.dart'; //cihaz bilgileri
+
+export 'package:fluttertoast/fluttertoast.dart'; //Toast
+

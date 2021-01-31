@@ -9,5 +9,10 @@
   "reg_password": "Password",
     "reg_password_valid": "Password is not valid.",
   "reg_mail": "E-Mail",
-    "reg_mail_valid": "E-Mail is not valid."
+    "reg_mail_valid": "E-Mail is not valid.",
+
+  "log_username": "Username",
+    "log_username_valid": "Username is not valid.",
+  "log_password": "Password",
+    "log_password_valid": "Password is not valid."
 }

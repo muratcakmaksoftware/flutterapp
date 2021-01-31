@@ -4,20 +4,19 @@
         "description": "Uygulama adı"
     },
 
+
+
     "login_tab_logged_in": "Giriş Yap",
     "@login_tab_logged_in": {
         "description": "Login ekranında tab giriş yap görünümü"
-    },
-
-    "login_input_username_hint": "Kullanıcı Adı",
-    "@login_input_username_hint": {
-        "description": "Login ekranında tab giriş yap görünümünde username hint"
     },
 
     "login_tab_register": "Kayıt Ol",
     "@login_tab_register": {
         "description": "Login ekranında tab kayıt ol görünümü"
     },
+
+
 
     "reg_username": "Kullanıcı Adı",
     "@reg_username": {
@@ -43,6 +42,26 @@
     },
         "reg_mail_valid": "E-Mail Adresinizi Doğrulayınız!",
         "@reg_mail_valid": {
+            "description": ""
+        },
+
+
+
+    "log_username": "Kullanıcı Adı",
+    "@log_username": {
+        "description": "Login kullanıcı adı"
+    },
+        "log_username_valid": "Kullanıcı Adınızı Giriniz!",
+        "@log_username_valid": {
+            "description": ""
+        },
+
+    "log_password": "Şifre",
+    "@log_password": {
+        "description": "Login şifre"
+    },
+        "log_password_valid": "Şifrenizi Giriniz!",
+        "@log_password_valid": {
             "description": ""
         }
 }
