@@ -22,3 +22,10 @@ flutter:
 - [Flutter Restful veya HTTP Döküman](https://flutter.dev/docs/cookbook#networking)
 
 - [Flutter Http Yükleme](https://pub.dev/packages/http/install)
+
+- [Flutter Shared Preferences (Local Storage)](https://pub.dev/packages/shared_preferences)
+
+- [Flutter Toast](https://pub.dev/packages/fluttertoast)
+
+
+
