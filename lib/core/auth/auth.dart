@@ -10,10 +10,6 @@ class AuthController{
     //
   }
 
-  static bool auth(username, password){
-    return false;
-  }
-
   static bool authRemember(username, password){
 
   }
@@ -65,9 +61,39 @@ class AuthController{
 
   }
 
-  static bool register(username, password){
+  static Future<dynamic> register(name, username, password, email) async {
+    print(name + " - "+ username + " - " + password + " - " + email + " - ");
+    final http.Response response = await http.post(
+      APIRouter.getApiUrl("register"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'name': name,
+        'username': username,
+        'password': password,
+        'email': email
+      }),
+    );
 
-    return false;
+    if(response.statusCode == 200){
+      final responseData = jsonDecode(response.body);
+      if(responseData["status"] == 1){
+        final token = responseData["token"];
+        return responseData;
+      }else{ // status == 0
+        //print(responseData);
+        return responseData;
+      }
+
+    }else{
+      final Map responseData = {
+        'status': 0,
+        'message': "Error 500",
+      };
+      return responseData;
+    }
+
   }
 
 }

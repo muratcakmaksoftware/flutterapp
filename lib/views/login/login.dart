@@ -20,6 +20,7 @@ class LoginState extends State<Login> {
   final TextEditingController _txteditLogUsernameController = TextEditingController();
   final TextEditingController _txteditLogPasswordController = TextEditingController();
 
+  final TextEditingController _txteditRegNameController = TextEditingController();
   final TextEditingController _txteditRegUsernameController = TextEditingController();
   final TextEditingController _txteditRegPasswordController = TextEditingController();
   final TextEditingController _txteditRegEmailController = TextEditingController();
@@ -31,8 +32,8 @@ class LoginState extends State<Login> {
       // scrollDirection: Axis.vertical,
     );
 
-    bool isAuthenticated = AuthController.authRemember("", "");
-    print(isAuthenticated);
+    //bool isAuthenticated = AuthController.authRemember("", "");
+    //print(isAuthenticated);
   }
 
   void dispose() {
@@ -64,23 +65,23 @@ class LoginState extends State<Login> {
       ),
       extendBodyBehindAppBar: true, //appbar arkaplanını body ile birleştirme
         body:Container( //içerik
-        decoration: BoxDecoration( //Arka plan rengi
-          gradient: LinearGradient(
-              colors: [Color(0xFFfbab66), Color(0xFFf7418c)],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 1.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp
+          decoration: BoxDecoration( //Arka plan rengi
+            gradient: LinearGradient(
+                colors: [Color(0xFFfbab66), Color(0xFFf7418c)],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 1.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp
+            ),
           ),
-        ),
-        child: Column( //Satırsal sıralama
-          //mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center, // Ortalama
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          child: Column( //Satırsal sıralama
+            //mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center, // Ortalama
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
             Container(
               width: getDeviceWidthPrecantage(45), //ekranın %70 lik genişlik verir.
-              height: 190.0,
+              height: 170.0,
               decoration: new BoxDecoration(
                 shape: BoxShape.circle,
                 image: new DecorationImage(
@@ -94,7 +95,7 @@ class LoginState extends State<Login> {
               children: [
                 Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
                       child: FlatButton(
                         color: _pageViewIndex == 0 ? MainButtonStyle.backgroundSelected : MainButtonStyle.background,
                         splashColor: MainButtonStyle.splashColor,
@@ -111,7 +112,7 @@ class LoginState extends State<Login> {
                 ),
                 Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
                       child: FlatButton(
                         color: _pageViewIndex == 1 ? MainButtonStyle.backgroundSelected : MainButtonStyle.background,
                         splashColor: MainButtonStyle.splashColor,
@@ -129,8 +130,8 @@ class LoginState extends State<Login> {
               ],
             ),
             Container(
-              padding: EdgeInsets.all(10),
-              height: 350,
+              padding: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
+              height: 400,
                 child:PageView(
                   onPageChanged: _onChangePage,
                   controller: _pageController,
@@ -185,12 +186,12 @@ class LoginState extends State<Login> {
                                     if(result["status"] == 0){
                                       Fluttertoast.showToast(
                                           msg: result["message"],
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.orange,
-                                          textColor: Colors.black,
-                                          fontSize: 16.0
+                                          toastLength: ToastStyle.toastLength,
+                                          gravity: ToastStyle.gravity,
+                                          timeInSecForIosWeb: ToastStyle.timeInSecForIosWeb,
+                                          backgroundColor: ToastStyle.backgroundColor,
+                                          textColor: ToastStyle.textColor,
+                                          fontSize: ToastStyle.fontSize
                                       );
                                     }else{ //status == 1
                                       Navigator.pushNamed(
@@ -220,6 +221,20 @@ class LoginState extends State<Login> {
                             key: _formRegisterKey,
                             child: Column(
                               children: [
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return AppLocalizations.of(context).reg_name_valid;
+                                    }
+                                    return null;
+                                  },
+                                  controller: _txteditRegNameController,
+                                  decoration: InputDecoration(
+                                    icon: Icon(Icons.account_circle),
+                                    labelText: AppLocalizations.of(context).reg_name,
+                                    hintText: AppLocalizations.of(context).reg_name,
+                                  ),
+                                ),
                                 TextFormField(
                                   validator: (value) {
                                     if (value.isEmpty) {
@@ -261,9 +276,44 @@ class LoginState extends State<Login> {
                                 FlatButton(
                                   color: MainButtonStyle.background,
                                   splashColor: MainButtonStyle.splashColor,
-                                  onPressed: (){
+                                  onPressed: () async {
                                     if (_formRegisterKey.currentState.validate()) {
-                                      print("okk");
+
+                                      final String name = _txteditRegNameController.text;
+                                      final String username = _txteditRegUsernameController.text;
+                                      final String password = _txteditRegPasswordController.text;
+                                      final String email = _txteditRegEmailController.text;
+                                      final result = await AuthController.register(name, username, password, email);
+
+                                      if(result["status"] == 0){
+                                        Fluttertoast.showToast(
+                                            msg: result["message"],
+                                            toastLength: ToastStyle.toastLength,
+                                            gravity: ToastStyle.gravity,
+                                            timeInSecForIosWeb: ToastStyle.timeInSecForIosWeb,
+                                            backgroundColor: ToastStyle.backgroundColor,
+                                            textColor: ToastStyle.textColor,
+                                            fontSize: ToastStyle.fontSize
+                                        );
+                                      }else{ //status == 1
+                                        _formRegisterKey.currentState.reset();//Register form clear.
+                                        //Login remember
+                                        _txteditLogUsernameController.text = username;
+                                        _txteditLogPasswordController.text = password;
+                                        Fluttertoast.showToast(
+                                            msg: result["message"],
+                                            toastLength: ToastStyle.toastLength,
+                                            gravity: ToastStyle.gravity,
+                                            timeInSecForIosWeb: ToastStyle.timeInSecForIosWeb,
+                                            backgroundColor: ToastStyle.backgroundColor,
+                                            textColor: ToastStyle.textColor,
+                                            fontSize: ToastStyle.fontSize
+                                        );
+                                        setState(() {
+                                          _onChangePage(0); //login sayfasına yönlendir.
+                                        });
+                                      }
+
                                     }
                                   },
                                   child: Text(

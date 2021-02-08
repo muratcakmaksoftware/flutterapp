@@ -4,6 +4,8 @@
   "login_input_username_hint": "Username",
   "login_tab_register": "Register",
 
+  "reg_name": "Your Name",
+    "reg_name_valid": "Your Name is not valid.",
   "reg_username": "Username",
     "reg_username_valid": "Username is not valid.",
   "reg_password": "Password",

@@ -16,7 +16,14 @@
         "description": "Login ekranında tab kayıt ol görünümü"
     },
 
-
+    "reg_name": "Adınız",
+    "@reg_name": {
+        "description": "Kayıt ol ismi"
+    },
+        "reg_name_valid": "Adınızı giriniz!",
+        "@reg_name_valid": {
+            "description": ""
+        },
 
     "reg_username": "Kullanıcı Adı",
     "@reg_username": {

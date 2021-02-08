@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MainStyle{
   //Color (00(transparent)00(R)00(G)00(B)
@@ -33,4 +34,13 @@ class MainButtonStyle{
 
 class MainTextStyle{
   static const TextStyle textStyle = TextStyle(fontSize: 17, color: Colors.black, decoration: TextDecoration.none);
+}
+
+class ToastStyle{
+  static const toastLength = Toast.LENGTH_SHORT;
+  static const gravity = ToastGravity.BOTTOM;
+  static const timeInSecForIosWeb = 1;
+  static const backgroundColor = Colors.orange;
+  static const textColor = Colors.black;
+  static const fontSize = 16.0;
 }
